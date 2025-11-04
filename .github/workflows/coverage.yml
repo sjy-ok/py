@@ -1,16 +1,18 @@
-# .github/workflows/tests.yml
-name: Tests
+# .github/workflows/coverage.yml
+name: Coverage
 on: push
 jobs:
-  tests:
+  coverage:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-python@v5
       with:
-        python-version: 3.11
+        python-version: '3.11'
         architecture: x64
     - run: pipx install "nox[pbs]==2025.10.16"
     - run: pipx install "poetry==2.2.1"
     - run: poetry self add poetry-plugin-export
-    - run: nox
+    - run: nox --sessions tests-3.11 coverage
+      env:
+        CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
