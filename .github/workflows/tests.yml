@@ -16,4 +16,5 @@ jobs:
         architecture: x64
     - run: pipx install nox==2025.10.16
     - run: pipx install poetry==2.2.1
+    - run: poetry self add poetry-plugin-export
     - run: nox
